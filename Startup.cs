@@ -7,11 +7,11 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using System.IO;
 using Microsoft.AspNetCore.Cors;
-using MyAppAPI.Helper;
-using MyAppAPI.Interface;
-using MyAppAPI.Services;
+using MiniInvoiceAPI.Helper;
+using MiniInvoiceAPI.Interface;
+using MiniInvoiceAPI.Services;
 
-namespace MyAppAPI
+namespace MiniInvoiceAPI
 {
     public class Startup
     {
@@ -74,12 +74,6 @@ namespace MyAppAPI
                 endpoints.MapControllers();
             });
 
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "Photos")),
-                RequestPath = "/Photos"
-            });
 
         }
     }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MiniInvoiceAPI.Model.Master
 {
-    public class M_Language
+    public class ModelCurrency
     {
-        public UniqueConstraint Language_ID { get; set; }
+        public UniqueConstraint Currency_ID { get; set; }
         public string Initial { get; set; }
         public string Description { get; set; }
     }

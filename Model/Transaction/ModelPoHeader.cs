@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MiniInvoiceAPI.Model.Transaction
 {
-    public class T_Po_Header
+    public class ModelPoHeader
     {
         public UniqueConstraint PO_H_ID { get; set; }
         public UniqueConstraint Currency_id { get; set; }

@@ -7,16 +7,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using MyAppAPI.Helper;
-using MyAppAPI.Interface;
-using MyAppAPI.Model;
+using MiniInvoiceAPI.Helper;
+using MiniInvoiceAPI.Interface;
+using MiniInvoiceAPI.Model;
+using MiniInvoiceAPI.Model.Authentication;
+using MiniInvoiceAPI.Model.UserMgt;
 
-namespace MyAppAPI.Services
+namespace MiniInvoiceAPI.Services
 {
     public class UserService : IUserService
     {
         // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-        private List<User> _users = new List<User>
+        private readonly List<User> _users = new List<User>
         {
             new User { Id = 1, FirstName = "Test", LastName = "User", Username = "test", Password = "test" },
             new User { Id = 2, FirstName = "Test2", LastName = "User2", Username = "test2", Password = "test2" },
@@ -39,7 +41,7 @@ namespace MyAppAPI.Services
             if (user == null) return null;
 
             // authentication successful so generate jwt token
-            var token = generateJwtToken(user);
+            var token = GenerateJwtToken(user);
 
             return new AuthenticateResponse(user, token);
         }
@@ -56,7 +58,7 @@ namespace MyAppAPI.Services
 
         // helper methods
 
-        private string generateJwtToken(User user)
+        private string GenerateJwtToken(User user)
         {
             // generate token that is valid for 7 days
             var tokenHandler = new JwtSecurityTokenHandler();

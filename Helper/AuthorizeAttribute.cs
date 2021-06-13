@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using MyAppAPI.Model;
+using MiniInvoiceAPI.Model.UserMgt;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace MyAppAPI.Helper
+namespace MiniInvoiceAPI.Helper
 {
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter
     {

@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using MyAppAPI.Interface;
+using MiniInvoiceAPI.Interface;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 
-namespace MyAppAPI.Helper
+namespace MiniInvoiceAPI.Helper
 {
     public class JwtMiddleware
     {
@@ -27,12 +27,12 @@ namespace MyAppAPI.Helper
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
-                attachUserToContext(context, userService, token);
+                AttachUserToContext(context, userService, token);
 
             await _next(context);
         }
 
-        private void attachUserToContext(HttpContext context, IUserService userService, string token)
+        private void AttachUserToContext(HttpContext context, IUserService userService, string token)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace MyAppAPI.Helper
                 // attach user to context on successful jwt validation
                 context.Items["User"] = userService.GetById(userId);
             }
-            catch (Exception e)
+            catch
             {
                 // do nothing if jwt validation fails
                 // user is not attached to context so request won't have access to secure routes

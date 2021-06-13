@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace MiniInvoiceAPI.Model.Master
 {
-    public class M_Pic
+    public class ModelCustomer
     {
-        public UniqueConstraint PIC_ID { get; set; }
-        public string Name { get; set; }
+        public UniqueConstraint Customer_ID { get; set; }
+        public string Customer_Name { get; set; }
+
     }
 }

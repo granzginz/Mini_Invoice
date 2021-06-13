@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MyAppAPI.Model
+namespace MiniInvoiceAPI.Model.Authentication
 {
     public class AuthenticateRequest
     {

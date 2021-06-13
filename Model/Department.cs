@@ -1,4 +1,4 @@
-﻿namespace MyAppAPI.Model
+﻿namespace MiniInvoiceAPI.Model
 {
     public class Department
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MiniInvoiceAPI.Model.Master
 {
-    public class M_UnitOfMeasurement
+    public class ModelUnitOfMeasurement
     {
         public UniqueConstraint UOM_ID { get; set; }
         public string Unit_Name { get; set; }

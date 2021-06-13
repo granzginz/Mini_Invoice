@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MyAppAPI.Model
+namespace MiniInvoiceAPI.Model.UserMgt
 {
     public class User
     {

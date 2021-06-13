@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MiniInvoiceAPI.Model.UserMgt;
 
-namespace MyAppAPI.Model
+namespace MiniInvoiceAPI.Model.Authentication
 {
     public class AuthenticateResponse
     {

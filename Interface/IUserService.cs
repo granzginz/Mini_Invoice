@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MyAppAPI.Model;
+using MiniInvoiceAPI.Model.Authentication;
+using MiniInvoiceAPI.Model.UserMgt;
 
-namespace MyAppAPI.Interface
+namespace MiniInvoiceAPI.Interface
 {
     public interface IUserService
     {
