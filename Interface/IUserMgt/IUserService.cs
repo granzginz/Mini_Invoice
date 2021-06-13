@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MiniInvoiceAPI.Model.Authentication;
+﻿using MiniInvoiceAPI.Model.Authentication;
 using MiniInvoiceAPI.Model.UserMgt;
+using System.Collections.Generic;
 
-namespace MiniInvoiceAPI.Interface
+namespace MiniInvoiceAPI.Interface.IUserMgt
 {
     public interface IUserService
     {

@@ -2,14 +2,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json.Serialization;
-using System.IO;
-using Microsoft.AspNetCore.Cors;
 using MiniInvoiceAPI.Helper;
-using MiniInvoiceAPI.Interface;
-using MiniInvoiceAPI.Services;
+using MiniInvoiceAPI.Interface.IUserMgt;
+using MiniInvoiceAPI.Services.SvcUserMgt;
+using Newtonsoft.Json.Serialization;
 
 namespace MiniInvoiceAPI
 {
@@ -39,6 +36,8 @@ namespace MiniInvoiceAPI
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
+            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
             services.AddControllers();
 

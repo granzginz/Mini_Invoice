@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Photos\" />
+    <Folder Include="Interface\IAuthentication\" />
+    <Folder Include="Interface\IMaster\" />
+    <Folder Include="Interface\ITrancation\" />
   </ItemGroup>
 
 

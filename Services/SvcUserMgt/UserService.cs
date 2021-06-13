@@ -1,19 +1,18 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using MiniInvoiceAPI.Helper;
+using MiniInvoiceAPI.Interface.IUserMgt;
+using MiniInvoiceAPI.Model.Authentication;
+using MiniInvoiceAPI.Model.UserMgt;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using MiniInvoiceAPI.Helper;
-using MiniInvoiceAPI.Interface;
-using MiniInvoiceAPI.Model;
-using MiniInvoiceAPI.Model.Authentication;
-using MiniInvoiceAPI.Model.UserMgt;
 
-namespace MiniInvoiceAPI.Services
+namespace MiniInvoiceAPI.Services.SvcUserMgt
 {
     public class UserService : IUserService
     {
@@ -27,6 +26,7 @@ namespace MiniInvoiceAPI.Services
         };
 
         private readonly AppSettings _appSettings;
+
 
         public UserService(IOptions<AppSettings> appSettings)
         {
@@ -42,6 +42,12 @@ namespace MiniInvoiceAPI.Services
 
             // authentication successful so generate jwt token
             var token = GenerateJwtToken(user);
+
+            if (token == null)
+            {
+                var kuki = new Cookie("Token", token);
+                
+            }
 
             return new AuthenticateResponse(user, token);
         }
@@ -60,16 +66,21 @@ namespace MiniInvoiceAPI.Services
 
         private string GenerateJwtToken(User user)
         {
-            // generate token that is valid for 7 days
+            // generate token that is valid for 1 days
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            //set session di browser kuki
+           // var kukiCookie = new Cookie("Token", tokenHandler.(token));
+
+
             return tokenHandler.WriteToken(token);
         }
     }

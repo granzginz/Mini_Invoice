@@ -12,5 +12,9 @@ namespace MiniInvoiceAPI.Model.Master
         public UniqueConstraint CustomerID { get; set; }
         public String Address_Name { get; set; }
 
+        public ModelAddress()
+        {
+
+        }
     }
 }
