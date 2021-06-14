@@ -3,31 +3,31 @@ using Microsoft.Extensions.Configuration;
 using MiniInvoiceAPI.Helper;
 using System.Data;
 using System.Data.SqlClient;
-using MiniInvoiceAPI.Model;
+using MiniInvoiceAPI.Model.Master;
 
-namespace MiniInvoiceAPI.Controllers
+namespace MiniInvoiceAPI.Controllers.Master
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentController : ControllerBase
+    public class CurrencyController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public DepartmentController(IConfiguration configuration)
+        public CurrencyController(IConfiguration configuration)
         {
             _configuration = configuration;
 
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"select DepartmentId, DepartmentName from dbo.Department";
+            string query = @"select Currency_ID,Initial, Description from dbo.Tbl_M_Currency";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("Localcon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))
@@ -44,16 +44,19 @@ namespace MiniInvoiceAPI.Controllers
             return new JsonResult(table);
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpPost]
-        public JsonResult Post(Department department)
+        public JsonResult Post(ModelCurrency body)
         {
-            string query = @"insert into dbo.Department values 
-                           ( '" + department.DepartmentName + @"')";
+            string query = @"insert into dbo.Tbl_M_Currency values 
+                           ( '" + body.Currency_ID + @"'
+                             , '" + body.Initial + @"'
+                             ,'" + body.Description + @"'
+                            )";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("Localcon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))
@@ -70,19 +73,20 @@ namespace MiniInvoiceAPI.Controllers
             return new JsonResult("Add Succesfully");
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpPut]
-        public JsonResult Put(Department department)
+        public JsonResult Put(ModelCurrency body)
         {
             string query = @"
-                             Update dbo.Department
-                                set DepartmentName = '" + department.DepartmentName + @"'
-                                   where DepartmentId = '" + department.DepartmentId + @"'
+                             Update dbo.Tbl_M_Currency
+                                set Initial = '" + body.Initial + @"'
+                                ,Description = '" + body.Description + @"'
+                                   where Currency_ID = '" + body.Currency_ID + @"'
                             ";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))
@@ -99,18 +103,18 @@ namespace MiniInvoiceAPI.Controllers
             return new JsonResult("Update Succesfully");
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {
             string query = @"
-                             delete from dbo.Department
-                                   where DepartmentId = '" + id + @"'
+                             delete from dbo.Tbl_M_Currency
+                                   where Currency_ID = '" + id + @"'
                             ";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))

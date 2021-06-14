@@ -3,31 +3,31 @@ using Microsoft.Extensions.Configuration;
 using MiniInvoiceAPI.Helper;
 using System.Data;
 using System.Data.SqlClient;
-using MiniInvoiceAPI.Model;
+using MiniInvoiceAPI.Model.Master;
 
-namespace MiniInvoiceAPI.Controllers
+namespace MiniInvoiceAPI.Controllers.Master
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentController : ControllerBase
+    public class CustomerController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public DepartmentController(IConfiguration configuration)
+        public CustomerController(IConfiguration configuration)
         {
             _configuration = configuration;
 
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"select DepartmentId, DepartmentName from dbo.Department";
+            string query = @"select Customer_ID, Customer_Name from dbo.Tbl_M_Customer";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("Localcon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))
@@ -44,16 +44,18 @@ namespace MiniInvoiceAPI.Controllers
             return new JsonResult(table);
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpPost]
-        public JsonResult Post(Department department)
+        public JsonResult Post(ModelCustomer body)
         {
-            string query = @"insert into dbo.Department values 
-                           ( '" + department.DepartmentName + @"')";
+            string query = @"insert into dbo.Tbl_M_Customer values 
+                           ( '" + body.Customer_ID + @"'
+                             , '" + body.Customer_Name + @"'
+                            )";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("Localcon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))
@@ -70,19 +72,19 @@ namespace MiniInvoiceAPI.Controllers
             return new JsonResult("Add Succesfully");
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpPut]
-        public JsonResult Put(Department department)
+        public JsonResult Put(ModelCustomer body)
         {
             string query = @"
-                             Update dbo.Department
-                                set DepartmentName = '" + department.DepartmentName + @"'
-                                   where DepartmentId = '" + department.DepartmentId + @"'
+                             Update dbo.Tbl_M_Customer
+                                set Customer_Name = '" + body.Customer_Name + @"'
+                                   where Customer_ID = '" + body.Customer_ID + @"'
                             ";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))
@@ -99,18 +101,18 @@ namespace MiniInvoiceAPI.Controllers
             return new JsonResult("Update Succesfully");
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {
             string query = @"
-                             delete from dbo.Department
-                                   where DepartmentId = '" + id + @"'
+                             delete from dbo.Tbl_M_Customer
+                                   where Customer_ID = '" + id + @"'
                             ";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))

@@ -8,7 +8,7 @@ namespace MiniInvoiceAPI.Model.Master
 {
     public class ModelCustomer
     {
-        public UniqueConstraint Customer_ID { get; set; }
+        public Guid Customer_ID { get; set; }
         public string Customer_Name { get; set; }
 
     }

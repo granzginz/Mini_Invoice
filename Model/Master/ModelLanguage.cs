@@ -8,7 +8,7 @@ namespace MiniInvoiceAPI.Model.Master
 {
     public class ModelLanguage
     {
-        public UniqueConstraint Language_ID { get; set; }
+        public Guid Language_ID { get; set; }
         public string Initial { get; set; }
         public string Description { get; set; }
     }

@@ -8,7 +8,7 @@ namespace MiniInvoiceAPI.Model.Master
 {
     public class ModelUnitOfMeasurement
     {
-        public UniqueConstraint UOM_ID { get; set; }
+        public Guid UOM_ID { get; set; }
         public string Unit_Name { get; set; }
         public string Description { get; set; }
     }

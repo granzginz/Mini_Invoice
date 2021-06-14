@@ -8,7 +8,7 @@ namespace MiniInvoiceAPI.Model.Master
 {
     public class ModelPic
     {
-        public UniqueConstraint PIC_ID { get; set; }
+        public Guid PIC_ID { get; set; }
         public string Name { get; set; }
     }
 }

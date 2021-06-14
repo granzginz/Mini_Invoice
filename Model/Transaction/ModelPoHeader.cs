@@ -9,8 +9,8 @@ namespace MiniInvoiceAPI.Model.Transaction
 {
     public class ModelPoHeader
     {
-        public UniqueConstraint PO_H_ID { get; set; }
-        public UniqueConstraint Currency_id { get; set; }
+        public Guid PO_H_ID { get; set; }
+        public Guid Currency_id { get; set; }
         public string Addr_From { get; set; }
         public string Addr_To { get; set; }
         public DateTime Date { get; set; }

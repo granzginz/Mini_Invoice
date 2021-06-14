@@ -3,31 +3,31 @@ using Microsoft.Extensions.Configuration;
 using MiniInvoiceAPI.Helper;
 using System.Data;
 using System.Data.SqlClient;
-using MiniInvoiceAPI.Model;
+using MiniInvoiceAPI.Model.Transaction;
 
-namespace MiniInvoiceAPI.Controllers
+namespace MiniInvoiceAPI.Controllers.Master
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentController : ControllerBase
+    public class PoHeaderController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public DepartmentController(IConfiguration configuration)
+        public PoHeaderController(IConfiguration configuration)
         {
             _configuration = configuration;
 
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"select DepartmentId, DepartmentName from dbo.Department";
+            string query = @"select PO_H_ID, Currency_ID, Addr_From, Addr_To, Date, InvoiceDue, PO_Number, Inv_Number, Logo from dbo.Tbl_T_PO_Header";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("Localcon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))
@@ -44,16 +44,25 @@ namespace MiniInvoiceAPI.Controllers
             return new JsonResult(table);
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpPost]
-        public JsonResult Post(Department department)
+        public JsonResult Post(ModelPoHeader body)
         {
-            string query = @"insert into dbo.Department values 
-                           ( '" + department.DepartmentName + @"')";
+            string query = @"insert into dbo.Tbl_T_PO_Header values 
+                           ( '" + body.PO_H_ID + @"'
+                             , '" + body.Currency_id + @"'
+                             ,'" + body.Addr_From + @"'
+                             ,'" + body.Addr_To + @"'
+                             ,'" + body.Date + @"'
+                             ,'" + body.InvoiceDue + @"'
+                             ,'" + body.PO_Number + @"'
+                             ,'" + body.Inv_Number + @"'
+                             ,'" + body.Logo + @"'
+                            )";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("Localcon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))
@@ -70,19 +79,26 @@ namespace MiniInvoiceAPI.Controllers
             return new JsonResult("Add Succesfully");
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpPut]
-        public JsonResult Put(Department department)
+        public JsonResult Put(ModelPoHeader body)
         {
             string query = @"
-                             Update dbo.Department
-                                set DepartmentName = '" + department.DepartmentName + @"'
-                                   where DepartmentId = '" + department.DepartmentId + @"'
+                             Update dbo.Tbl_T_PO_Header
+                                set Currency_ID = '" + body.Currency_id + @"'
+                                ,Addr_From = '" + body.Addr_From + @"'
+                                ,Addr_To = '" + body.Addr_To + @"'
+                                ,Date = '" + body.Date + @"'
+                                ,InvoiceDue = '" + body.InvoiceDue + @"'
+                                ,PO_Number = '" + body.PO_Number + @"'
+                                ,Inv_Number = '" + body.Inv_Number + @"'
+                                ,Logo = '" + body.Logo + @"'
+                                   where PO_H_ID = '" + body.PO_H_ID + @"'
                             ";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))
@@ -99,18 +115,18 @@ namespace MiniInvoiceAPI.Controllers
             return new JsonResult("Update Succesfully");
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {
             string query = @"
-                             delete from dbo.Department
-                                   where DepartmentId = '" + id + @"'
+                             delete from dbo.Tbl_T_PO_Header
+                                   where PO_H_ID = '" + id + @"'
                             ";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))

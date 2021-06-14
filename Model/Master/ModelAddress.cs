@@ -8,8 +8,8 @@ namespace MiniInvoiceAPI.Model.Master
 {
     public class ModelAddress
     {
-        public UniqueConstraint Addres_ID { get; set; }
-        public UniqueConstraint CustomerID { get; set; }
+        public Guid Addres_ID { get; set; }
+        public Guid CustomerID { get; set; }
         public String Address_Name { get; set; }
 
         public ModelAddress()

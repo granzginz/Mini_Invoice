@@ -36,5 +36,3 @@ C:\Users\Anjar\Documents\My Appl\MiniInvoice_API\obj\Debug\netcoreapp3.1\MiniInv
 C:\Users\Anjar\Documents\My Appl\MiniInvoice_API\obj\Debug\netcoreapp3.1\MiniInvoiceAPI.pdb
 C:\Users\Anjar\Documents\My Appl\MiniInvoice_API\obj\Debug\netcoreapp3.1\MiniInvoiceAPI.genruntimeconfig.cache
 C:\Users\Anjar\Documents\My Appl\MiniInvoice_API\obj\Debug\netcoreapp3.1\MiniInvoiceAPI.csproj.AssemblyReference.cache
-C:\Users\Anjar\Documents\My Appl\MiniInvoice_API\bin\Debug\netcoreapp3.1\Model.dll
-C:\Users\Anjar\Documents\My Appl\MiniInvoice_API\bin\Debug\netcoreapp3.1\Model.pdb

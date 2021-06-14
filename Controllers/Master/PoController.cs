@@ -3,31 +3,31 @@ using Microsoft.Extensions.Configuration;
 using MiniInvoiceAPI.Helper;
 using System.Data;
 using System.Data.SqlClient;
-using MiniInvoiceAPI.Model;
+using MiniInvoiceAPI.Model.Master;
 
-namespace MiniInvoiceAPI.Controllers
+namespace MiniInvoiceAPI.Controllers.Master
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentController : ControllerBase
+    public class PoController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public DepartmentController(IConfiguration configuration)
+        public PoController(IConfiguration configuration)
         {
             _configuration = configuration;
 
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"select DepartmentId, DepartmentName from dbo.Department";
+            string query = @"select PO_ID,PIC_ID, PO_Number,Amount from dbo.Tbl_M_PO";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("Localcon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))
@@ -44,16 +44,20 @@ namespace MiniInvoiceAPI.Controllers
             return new JsonResult(table);
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpPost]
-        public JsonResult Post(Department department)
+        public JsonResult Post(ModelPo body)
         {
-            string query = @"insert into dbo.Department values 
-                           ( '" + department.DepartmentName + @"')";
+            string query = @"insert into dbo.Tbl_M_PO values 
+                           ( '" + body.PO_ID + @"'
+                             , '" + body.PIC_ID + @"'
+                             ,'" + body.PO_Number + @"'
+                             ,'" + body.Amount + @"'
+                            )";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("Localcon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))
@@ -70,19 +74,21 @@ namespace MiniInvoiceAPI.Controllers
             return new JsonResult("Add Succesfully");
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpPut]
-        public JsonResult Put(Department department)
+        public JsonResult Put(ModelPo body)
         {
             string query = @"
-                             Update dbo.Department
-                                set DepartmentName = '" + department.DepartmentName + @"'
-                                   where DepartmentId = '" + department.DepartmentId + @"'
+                             Update dbo.Tbl_M_PO
+                                set PIC_ID = '" + body.PIC_ID + @"'
+                                ,PO_Number = '" + body.PO_Number + @"'
+                                ,Amount = '" + body.Amount + @"'
+                                   where PO_ID = '" + body.PO_ID + @"'
                             ";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))
@@ -99,18 +105,18 @@ namespace MiniInvoiceAPI.Controllers
             return new JsonResult("Update Succesfully");
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {
             string query = @"
-                             delete from dbo.Department
-                                   where DepartmentId = '" + id + @"'
+                             delete from dbo.Tbl_M_PO
+                                   where PO_ID = '" + id + @"'
                             ";
 
             DataTable table = new DataTable();
 
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
 
             SqlDataReader myReader;
             using (SqlConnection con = new SqlConnection(sqlDataSource))

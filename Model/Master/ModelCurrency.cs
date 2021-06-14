@@ -8,7 +8,7 @@ namespace MiniInvoiceAPI.Model.Master
 {
     public class ModelCurrency
     {
-        public UniqueConstraint Currency_ID { get; set; }
+        public Guid Currency_ID { get; set; }
         public string Initial { get; set; }
         public string Description { get; set; }
     }
