@@ -11,10 +11,10 @@ namespace MiniInvoiceAPI.Model.Transaction
         public Guid PO_H_ID { get; set; }
         public Guid PO_D_ID { get; set; }
         public Guid PO_D_Grid_ID { get; set; }
-        public double SubTotal { get; set; }
-        public double Discount { get; set; }
-        public string Discount_Name { get; set; }
-        public double Total { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal Discount { get; set; }
+        public decimal Discount_Name { get; set; }
+        public decimal Total { get; set; }
         public Guid UOM_ID { get; set; }
         public string PO_Number { get; set; }
 

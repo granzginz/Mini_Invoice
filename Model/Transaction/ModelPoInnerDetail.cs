@@ -12,7 +12,7 @@ namespace MiniInvoiceAPI.Model.Transaction
         public int Sequence { get; set; }
         public string Quantity { get; set; }
         public float Rate { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
         public string Unit_Name { get; set; }
       
 
