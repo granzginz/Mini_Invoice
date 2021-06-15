@@ -9,11 +9,11 @@ namespace MiniInvoiceAPI.Controllers.Master
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PoDetailController : ControllerBase
+    public class PoInnerDetailController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public PoDetailController(IConfiguration configuration)
+        public PoInnerDetailController(IConfiguration configuration)
         {
             _configuration = configuration;
 
@@ -23,7 +23,7 @@ namespace MiniInvoiceAPI.Controllers.Master
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"select PO_H_ID,PO_D_ID,PO_D_Grid_ID,SubTotal,Discount_Name,Discount,Total from dbo.Tbl_T_PO_Detail";
+            string query = @"select PO_D_Grid_ID,Sequence,Quantity,Rate,Amount,Unit_Name from tbl_T_PO_Inner_Detail";
 
             DataTable table = new DataTable();
 
@@ -44,12 +44,11 @@ namespace MiniInvoiceAPI.Controllers.Master
             return new JsonResult(table);
         }
 
-
         // [Authorize]
         [HttpPost]
         public JsonResult Post(ModelPoDetail body)
         {
-            string query = @"insert into dbo.Tbl_T_PO_Detail values 
+            string query = @"insert into dbo.tbl_T_PO_Inner_Detail values 
                            ( '" + body.PO_H_ID + @"'
                              , '" + body.PO_D_ID + @"'
                              ,'" + body.Name + @"'
