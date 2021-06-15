@@ -23,7 +23,7 @@ namespace MiniInvoiceAPI.Controllers.Master
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"select Language_ID,Initial, Description from dbo.Tbl_M_Language";
+            string query = @"select Initial, Description from dbo.Tbl_M_Language";
 
             DataTable table = new DataTable();
 

@@ -23,7 +23,7 @@ namespace MiniInvoiceAPI.Controllers.Master
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"select PO_H_ID,PO_D_ID,Name,Quantity, Rate, Amount,SubTotal,Discount,Total,UOM_ID,PO_Number from dbo.Tbl_T_PO_Detail";
+            string query = @"select PO_H_ID,PO_D_ID,Name_Customer,Quantity, Rate, Amount,SubTotal,Discount,Total,UOM_ID,PO_Number from dbo.Tbl_T_PO_Detail";
 
             DataTable table = new DataTable();
 
@@ -87,7 +87,7 @@ namespace MiniInvoiceAPI.Controllers.Master
         {
             string query = @"
                              Update dbo.Tbl_T_PO_Detail
-                                set Name = '" + body.Name + @"'
+                                set Name_Customer = '" + body.Name + @"'
                                 ,Quantity = '" + body.Quantity + @"'
                                 ,Rate = '" + body.Rate + @"'
                                 ,Amount = '" + body.Amount + @"'
