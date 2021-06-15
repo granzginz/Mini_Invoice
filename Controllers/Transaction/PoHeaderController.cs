@@ -23,7 +23,9 @@ namespace MiniInvoiceAPI.Controllers.Master
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"select PO_H_ID, Currency_ID, Addr_From, Addr_To, Date, InvoiceDue, PO_Number, Inv_Number, Logo from dbo.Tbl_T_PO_Header";
+            string query = @"select poh.PO_H_ID, poh.Currency_ID, poh.Addr_From, poh.Addr_To, poh.Date, poh.InvoiceDue, poh.PO_Number, poh.Inv_Number, poh.Logo, poh.Language_ID, ml.Initial LangInitial_ID, mc.Initial CurrInitial_ID from dbo.Tbl_T_PO_Header poh
+inner join Tbl_M_Language ml on ml.Language_ID = poh.Language_ID
+inner join Tbl_M_Currency mc on mc.Currency_ID = poh.Currency_ID";
 
             DataTable table = new DataTable();
 
@@ -58,6 +60,7 @@ namespace MiniInvoiceAPI.Controllers.Master
                              ,'" + body.PO_Number + @"'
                              ,'" + body.Inv_Number + @"'
                              ,'" + body.Logo + @"'
+                             ,'" + body.Language_id + @"'
                             )";
 
             DataTable table = new DataTable();
@@ -93,6 +96,7 @@ namespace MiniInvoiceAPI.Controllers.Master
                                 ,PO_Number = '" + body.PO_Number + @"'
                                 ,Inv_Number = '" + body.Inv_Number + @"'
                                 ,Logo = '" + body.Logo + @"'
+                                ,Language_ID = '" + body.Language_id + @"'
                                    where PO_H_ID = '" + body.PO_H_ID + @"'
                             ";
 

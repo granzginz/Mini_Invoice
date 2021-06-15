@@ -18,5 +18,8 @@ namespace MiniInvoiceAPI.Model.Transaction
         public string PO_Number { get; set; }
         public string Inv_Number { get; set; }
         public string Logo { get; set; }
+        public string Language_id { get; set; }
+        public string Language_initial { get; set; }
+        public string Currency_initial { get; set; }
     }
 }

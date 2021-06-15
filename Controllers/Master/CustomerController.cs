@@ -23,7 +23,7 @@ namespace MiniInvoiceAPI.Controllers.Master
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"select Customer_ID, Customer_Name from dbo.Tbl_M_Customer";
+            string query = @"select Customer_ID, Customer_Company, Customer_Name from dbo.Tbl_M_Customer";
 
             DataTable table = new DataTable();
 
@@ -51,6 +51,7 @@ namespace MiniInvoiceAPI.Controllers.Master
             string query = @"insert into dbo.Tbl_M_Customer values 
                            ( '" + body.Customer_ID + @"'
                              , '" + body.Customer_Name + @"'
+                             , '" + body.Customer_Company + @"'
                             )";
 
             DataTable table = new DataTable();
@@ -79,6 +80,7 @@ namespace MiniInvoiceAPI.Controllers.Master
             string query = @"
                              Update dbo.Tbl_M_Customer
                                 set Customer_Name = '" + body.Customer_Name + @"'
+                                    Customer_Company = '" + body.Customer_Company + @"'
                                    where Customer_ID = '" + body.Customer_ID + @"'
                             ";
 

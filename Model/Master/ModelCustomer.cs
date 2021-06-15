@@ -10,6 +10,7 @@ namespace MiniInvoiceAPI.Model.Master
     {
         public Guid Customer_ID { get; set; }
         public string Customer_Name { get; set; }
+        public string Customer_Company { get; set; }
 
     }
 }
