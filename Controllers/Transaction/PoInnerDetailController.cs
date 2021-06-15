@@ -46,20 +46,15 @@ namespace MiniInvoiceAPI.Controllers.Master
 
         // [Authorize]
         [HttpPost]
-        public JsonResult Post(ModelPoDetail body)
+        public JsonResult Post(ModelPoInnerDetail body)
         {
             string query = @"insert into dbo.tbl_T_PO_Inner_Detail values 
-                           ( '" + body.PO_H_ID + @"'
-                             , '" + body.PO_D_ID + @"'
-                             ,'" + body.Name + @"'
+                           ( '" + body.PO_D_Grid_ID + @"'
+                             , '" + body.Sequence + @"'
                              ,'" + body.Quantity + @"'
                              ,'" + body.Rate + @"'
                              ,'" + body.Amount + @"'
-                             ,'" + body.SubTotal + @"'
-                             ,'" + body.Discount + @"'
-                             ,'" + body.Total + @"'
-                             ,'" + body.UOM_ID + @"'
-                             ,'" + body.PO_Number + @"'
+                             ,'" + body.Unit_Name + @"'
                             )";
 
             DataTable table = new DataTable();
@@ -83,20 +78,16 @@ namespace MiniInvoiceAPI.Controllers.Master
 
         // [Authorize]
         [HttpPut]
-        public JsonResult Put(ModelPoDetail body)
+        public JsonResult Put(ModelPoInnerDetail body)
         {
             string query = @"
-                             Update dbo.Tbl_T_PO_Detail
-                                set Name_Customer = '" + body.Name + @"'
-                                ,Quantity = '" + body.Quantity + @"'
+                             Update dbo.tbl_T_PO_Inner_Detail
+                                set Quantity = '" + body.Quantity + @"'
                                 ,Rate = '" + body.Rate + @"'
                                 ,Amount = '" + body.Amount + @"'
-                                ,SubTotal = '" + body.SubTotal + @"'
-                                ,Discount = '" + body.Discount + @"'
-                                ,Total = '" + body.Total + @"'
-                                ,UOM_ID = '" + body.UOM_ID + @"'
-                                ,PO_Number = '" + body.PO_Number + @"'
-                                   where PO_D_ID = '" + body.PO_D_ID + @"'
+                                ,Unit_Name = '" + body.Unit_Name + @"'
+                                   where PO_D_ID = '" + body.PO_D_Grid_ID + @"'
+                                and Sequence = '" + body.Sequence + @"'
                             ";
 
             DataTable table = new DataTable();
@@ -119,12 +110,13 @@ namespace MiniInvoiceAPI.Controllers.Master
         }
 
         // [Authorize]
-        [HttpDelete("{id}")]
-        public JsonResult Delete(int id)
+        [HttpDelete]
+        public JsonResult Delete(ModelPoInnerDetail body)
         {
             string query = @"
-                             delete from dbo.Tbl_T_PO_Detail
-                                   where PO_D_ID = '" + id + @"'
+                             delete from dbo.tbl_T_PO_Inner_Detail
+                                   where PO_D_Grid_ID = '" + body.PO_D_Grid_ID + @"'
+                                and Sequence = '" + body.Sequence + @"'
                             ";
 
             DataTable table = new DataTable();

@@ -50,17 +50,19 @@ inner join Tbl_M_Currency mc on mc.Currency_ID = poh.Currency_ID";
         [HttpPost]
         public JsonResult Post(ModelPoHeader body)
         {
+            var outGUID = System.Guid.NewGuid();
             string query = @"insert into dbo.Tbl_T_PO_Header values 
-                           ( '" + body.PO_H_ID + @"'
+                           ( '" + outGUID + @"'
                              , '" + body.Currency_id + @"'
                              ,'" + body.Addr_From + @"'
                              ,'" + body.Addr_To + @"'
-                             ,'" + body.Date + @"'
-                             ,'" + body.InvoiceDue + @"'
+                             ,'" + body.Date.ToString("yyyy-mm-dd") + @"'
+                             ,'" + body.InvoiceDue.ToString("yyyy-mm-dd") + @"'
                              ,'" + body.PO_Number + @"'
                              ,'" + body.Inv_Number + @"'
                              ,'" + body.Logo + @"'
                              ,'" + body.Language_id + @"'
+                            ,'" + body.Name_Customer + @"'
                             )";
 
             DataTable table = new DataTable();
@@ -79,7 +81,11 @@ inner join Tbl_M_Currency mc on mc.Currency_ID = poh.Currency_ID";
                 con.Close();
             }
 
-            return new JsonResult("Add Succesfully");
+            return new JsonResult(new
+            {
+                message = "Add Succesfully",
+                respoutGUID = outGUID
+            });
         }
 
         // [Authorize]
@@ -91,12 +97,13 @@ inner join Tbl_M_Currency mc on mc.Currency_ID = poh.Currency_ID";
                                 set Currency_ID = '" + body.Currency_id + @"'
                                 ,Addr_From = '" + body.Addr_From + @"'
                                 ,Addr_To = '" + body.Addr_To + @"'
-                                ,Date = '" + body.Date + @"'
-                                ,InvoiceDue = '" + body.InvoiceDue + @"'
+                                ,Date = '" + body.Date.ToString("yyyy-mm-dd") + @"'
+                                ,InvoiceDue = '" + body.InvoiceDue.ToString("yyyy-mm-dd") + @"'
                                 ,PO_Number = '" + body.PO_Number + @"'
                                 ,Inv_Number = '" + body.Inv_Number + @"'
                                 ,Logo = '" + body.Logo + @"'
                                 ,Language_ID = '" + body.Language_id + @"'
+                                ,Name_Customer = '" + body.Name_Customer + @"'
                                    where PO_H_ID = '" + body.PO_H_ID + @"'
                             ";
 
@@ -120,12 +127,12 @@ inner join Tbl_M_Currency mc on mc.Currency_ID = poh.Currency_ID";
         }
 
         // [Authorize]
-        [HttpDelete("{id}")]
-        public JsonResult Delete(int id)
+        [HttpDelete]
+        public JsonResult Delete(ModelPoHeader body)
         {
             string query = @"
                              delete from dbo.Tbl_T_PO_Header
-                                   where PO_H_ID = '" + id + @"'
+                                   where PO_H_ID = '" + body.PO_H_ID + @"'
                             ";
 
             DataTable table = new DataTable();

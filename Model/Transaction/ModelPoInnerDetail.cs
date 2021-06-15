@@ -10,10 +10,10 @@ namespace MiniInvoiceAPI.Model.Transaction
     {
         public Guid PO_D_Grid_ID { get; set; }
         public int Sequence { get; set; }
-        public int Quantity { get; set; }
+        public string Quantity { get; set; }
         public float Rate { get; set; }
         public double Amount { get; set; }
-        public double Unit_Name { get; set; }
+        public string Unit_Name { get; set; }
       
 
     }
