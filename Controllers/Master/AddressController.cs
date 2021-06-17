@@ -48,8 +48,9 @@ namespace MiniInvoiceAPI.Controllers.Master
         [HttpPost]
         public JsonResult Post(ModelAddress body)
         {
+            var Addres_ID = System.Guid.NewGuid();
             string query = @"insert into dbo.Tbl_M_Address values 
-                           ( '" + body.Addres_ID + @"'
+                           ( '" + Addres_ID + @"'
                              , '" + body.CustomerID + @"'
                              ,'" + body.Address_Name + @"'
                             )";
@@ -104,12 +105,12 @@ namespace MiniInvoiceAPI.Controllers.Master
         }
 
         // [Authorize]
-        [HttpDelete("{id}")]
-        public JsonResult Delete(int id)
+        [HttpDelete]
+        public JsonResult Delete(ModelAddress body)
         {
             string query = @"
                              delete from dbo.Tbl_M_Address
-                                   where Address_ID = '" + id + @"'
+                                   where Address_ID = '" + body.Addres_ID + @"'
                             ";
 
             DataTable table = new DataTable();

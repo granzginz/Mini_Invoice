@@ -48,8 +48,9 @@ namespace MiniInvoiceAPI.Controllers.Master
         [HttpPost]
         public JsonResult Post(ModelCurrency body)
         {
+            var Currency_ID = System.Guid.NewGuid();
             string query = @"insert into dbo.Tbl_M_Currency values 
-                           ( '" + body.Currency_ID + @"'
+                           ( '" + Currency_ID + @"'
                              , '" + body.Initial + @"'
                              ,'" + body.Description + @"'
                             )";
@@ -104,12 +105,12 @@ namespace MiniInvoiceAPI.Controllers.Master
         }
 
         // [Authorize]
-        [HttpDelete("{id}")]
-        public JsonResult Delete(int id)
+        [HttpDelete]
+        public JsonResult Delete(ModelCurrency body)
         {
             string query = @"
                              delete from dbo.Tbl_M_Currency
-                                   where Currency_ID = '" + id + @"'
+                                   where Currency_ID = '" + body.Currency_ID + @"'
                             ";
 
             DataTable table = new DataTable();

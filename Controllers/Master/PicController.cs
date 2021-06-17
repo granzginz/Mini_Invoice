@@ -48,8 +48,9 @@ namespace MiniInvoiceAPI.Controllers.Master
         [HttpPost]
         public JsonResult Post(ModelPic body)
         {
+            var PIC_ID = System.Guid.NewGuid();
             string query = @"insert into dbo.Tbl_M_PIC values 
-                           ( '" + body.PIC_ID + @"'
+                           ( '" + PIC_ID + @"'
                              , '" + body.Name + @"'
                             )";
 
@@ -102,12 +103,12 @@ namespace MiniInvoiceAPI.Controllers.Master
         }
 
         // [Authorize]
-        [HttpDelete("{id}")]
-        public JsonResult Delete(int id)
+        [HttpDelete]
+        public JsonResult Delete(ModelPic body)
         {
             string query = @"
                              delete from dbo.Tbl_M_PIC
-                                   where PIC_ID = '" + id + @"'
+                                   where PIC_ID = '" + body.PIC_ID + @"'
                             ";
 
             DataTable table = new DataTable();

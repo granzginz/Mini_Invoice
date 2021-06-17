@@ -48,8 +48,9 @@ namespace MiniInvoiceAPI.Controllers.Master
         [HttpPost]
         public JsonResult Post(ModelLanguage body)
         {
+            var Language_ID = System.Guid.NewGuid();
             string query = @"insert into dbo.Tbl_M_Language values 
-                           ( '" + body.Language_ID + @"'
+                           ( '" + Language_ID + @"'
                              , '" + body.Initial + @"'
                              ,'" + body.Description + @"'
                             )";
@@ -105,11 +106,11 @@ namespace MiniInvoiceAPI.Controllers.Master
 
         // [Authorize]
         [HttpDelete("{id}")]
-        public JsonResult Delete(int id)
+        public JsonResult Delete(ModelLanguage body)
         {
             string query = @"
                              delete from dbo.Tbl_M_Language
-                                   where Language_ID = '" + id + @"'
+                                   where Language_ID = '" + body.Language_ID + @"'
                             ";
 
             DataTable table = new DataTable();

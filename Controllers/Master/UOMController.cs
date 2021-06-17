@@ -48,8 +48,9 @@ namespace MiniInvoiceAPI.Controllers.Master
         [HttpPost]
         public JsonResult Post(ModelUnitOfMeasurement body)
         {
+            var UOM_ID = System.Guid.NewGuid();
             string query = @"insert into dbo.Tbl_M_UnitOfMeasurement values 
-                           ( '" + body.UOM_ID + @"'
+                           ( '" + UOM_ID + @"'
                              , '" + body.Unit_Name + @"'
                              ,'" + body.Description + @"'
                             )";
@@ -104,12 +105,12 @@ namespace MiniInvoiceAPI.Controllers.Master
         }
 
         // [Authorize]
-        [HttpDelete("{id}")]
-        public JsonResult Delete(int id)
+        [HttpDelete]
+        public JsonResult Delete(ModelUnitOfMeasurement body)
         {
             string query = @"
                              delete from dbo.Tbl_M_UnitOfMeasurement
-                                   where UOM_ID = '" + id + @"'
+                                   where UOM_ID = '" + body.UOM_ID + @"'
                             ";
 
             DataTable table = new DataTable();

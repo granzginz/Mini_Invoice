@@ -48,8 +48,9 @@ namespace MiniInvoiceAPI.Controllers.Master
         [HttpPost]
         public JsonResult Post(ModelPo body)
         {
+            var PO_ID = System.Guid.NewGuid();
             string query = @"insert into dbo.Tbl_M_PO values 
-                           ( '" + body.PO_ID + @"'
+                           ( '" + PO_ID + @"'
                              , '" + body.PIC_ID + @"'
                              ,'" + body.PO_Number + @"'
                              ,'" + body.Amount + @"'
@@ -106,12 +107,12 @@ namespace MiniInvoiceAPI.Controllers.Master
         }
 
         // [Authorize]
-        [HttpDelete("{id}")]
-        public JsonResult Delete(int id)
+        [HttpDelete]
+        public JsonResult Delete(ModelPo body)
         {
             string query = @"
                              delete from dbo.Tbl_M_PO
-                                   where PO_ID = '" + id + @"'
+                                   where PO_ID = '" + body.PO_ID + @"'
                             ";
 
             DataTable table = new DataTable();

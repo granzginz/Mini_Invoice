@@ -19,11 +19,38 @@ namespace MiniInvoiceAPI.Controllers.Master
 
         }
 
+        [HttpGet("GetSelected")]
+        public JsonResult GetSelected(ModelPoHeader body)
+        {
+            string query = @"select poh.PO_H_ID, poh.Currency_ID, poh.Addr_From, poh.Addr_To, poh.Date, poh.InvoiceDue, poh.PO_Number, poh.Inv_Number, poh.Logo, poh.Language_ID,Name_Customer, ml.Initial LangInitial_ID, mc.Initial CurrInitial_ID from dbo.Tbl_T_PO_Header poh
+inner join Tbl_M_Language ml on ml.Language_ID = poh.Language_ID
+inner join Tbl_M_Currency mc on mc.Currency_ID = poh.Currency_ID
+where poh.PO_H_ID = '" + body.PO_H_ID + "'";
+
+            DataTable table = new DataTable();
+
+            string sqlDataSource = _configuration.GetConnectionString("LocalCon");
+
+            SqlDataReader myReader;
+            using (SqlConnection con = new SqlConnection(sqlDataSource))
+            {
+                con.Open();
+                using SqlCommand mCommand = new SqlCommand(query, con);
+                myReader = mCommand.ExecuteReader();
+                table.Load(myReader);
+
+                myReader.Close();
+                con.Close();
+            }
+
+            return new JsonResult(table);
+        }
+
         // [Authorize]
-        [HttpGet]
+        [HttpGet("GetPaging")]
         public JsonResult Get()
         {
-            string query = @"select poh.PO_H_ID, poh.Currency_ID, poh.Addr_From, poh.Addr_To, poh.Date, poh.InvoiceDue, poh.PO_Number, poh.Inv_Number, poh.Logo, poh.Language_ID, ml.Initial LangInitial_ID, mc.Initial CurrInitial_ID from dbo.Tbl_T_PO_Header poh
+            string query = @"select poh.PO_H_ID, poh.Currency_ID, poh.Addr_From, poh.Addr_To, poh.Date, poh.InvoiceDue, poh.PO_Number, poh.Inv_Number, poh.Logo, poh.Language_ID,Name_Customer, ml.Initial LangInitial_ID, mc.Initial CurrInitial_ID from dbo.Tbl_T_PO_Header poh
 inner join Tbl_M_Language ml on ml.Language_ID = poh.Language_ID
 inner join Tbl_M_Currency mc on mc.Currency_ID = poh.Currency_ID";
 
@@ -43,7 +70,10 @@ inner join Tbl_M_Currency mc on mc.Currency_ID = poh.Currency_ID";
                 con.Close();
             }
 
-            return new JsonResult(table);
+            return new JsonResult(new
+            {
+                data = table
+            });
         }
 
         // [Authorize]
