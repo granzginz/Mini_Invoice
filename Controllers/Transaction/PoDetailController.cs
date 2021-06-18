@@ -19,7 +19,7 @@ namespace MiniInvoiceAPI.Controllers.Master
 
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpGet]
         public JsonResult Get()
         {
@@ -45,7 +45,7 @@ namespace MiniInvoiceAPI.Controllers.Master
         }
 
 
-        // [Authorize]
+        [Authorize]
         [HttpPost]
         public JsonResult Post(ModelPoDetail body)
         {
@@ -86,7 +86,7 @@ namespace MiniInvoiceAPI.Controllers.Master
             });
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPut]
         public JsonResult Put(ModelPoDetail body)
         {
@@ -118,7 +118,7 @@ namespace MiniInvoiceAPI.Controllers.Master
             return new JsonResult("Update Succesfully");
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpDelete]
         public JsonResult Delete(ModelPoDetail body)
         {

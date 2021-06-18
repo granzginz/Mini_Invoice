@@ -46,7 +46,7 @@ where poh.PO_H_ID = '" + body.PO_H_ID + "'";
             return new JsonResult(table);
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpGet("GetPaging")]
         public JsonResult Get()
         {
@@ -76,7 +76,7 @@ inner join Tbl_M_Currency mc on mc.Currency_ID = poh.Currency_ID";
             });
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost]
         public JsonResult Post(ModelPoHeader body)
         {
@@ -118,7 +118,7 @@ inner join Tbl_M_Currency mc on mc.Currency_ID = poh.Currency_ID";
             });
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPut]
         public JsonResult Put(ModelPoHeader body)
         {
@@ -156,7 +156,7 @@ inner join Tbl_M_Currency mc on mc.Currency_ID = poh.Currency_ID";
             return new JsonResult("Update Succesfully");
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpDelete]
         public JsonResult Delete(ModelPoHeader body)
         {
