@@ -48,7 +48,7 @@ where poh.PO_H_ID = '" + body.PO_H_ID + "'";
 
         [Authorize]
         [HttpGet("GetPaging")]
-        public JsonResult Get()
+        public JsonResult GetPaging()
         {
             string query = @"select poh.PO_H_ID, poh.Currency_ID, poh.Addr_From, poh.Addr_To, poh.Date, poh.InvoiceDue, poh.PO_Number, poh.Inv_Number, poh.Logo, poh.Language_ID,Name_Customer, ml.Initial LangInitial_ID, mc.Initial CurrInitial_ID from dbo.Tbl_T_PO_Header poh
 inner join Tbl_M_Language ml on ml.Language_ID = poh.Language_ID
